@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Despesas - Viagem Cumuruxatiba</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .table-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .total-row {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .value-cell {
+            text-align: right;
+        }
+
+        .paid-by-debora {
+            background-color: #fff3e0;
+        }
+
+        .summary-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-item.carolina {
+            background-color: #e3f2fd;
+        }
+
+        .summary-item.debora {
+            background-color: #fff3e0;
+        }
+
+        .summary-item.outras {
+            background-color: #8DB3E2;
+            color: white;
+        }
+
+        .summary-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .summary-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Dashboard de Despesas</h1>
+            <p>Viagem para Cumuruxatiba - Janeiro 2024</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>Resumo de Pagamentos</h2>
+            <div class="summary-grid">
+                <div class="summary-item carolina">
+                    <div>Total Carolina</div>
+                    <div class="summary-value">R$ 1.805,84</div>
+                    <div class="summary-label">(Exceto Outras Despesas)</div>
+                </div>
+                <div class="summary-item debora">
+                    <div>Total Débora</div>
+                    <div class="summary-value">R$ 1.278,36</div>
+                    <div class="summary-label">(Exceto Outras Despesas)</div>
+                </div>
+                <div class="summary-item outras">
+                    <div>Outras Despesas</div>
+                    <div class="summary-value">R$ 138,00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h2>Despesas por Categoria</h2>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h2>Distribuição de Despesas</h2>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2>Detalhamento de Despesas</h2>
+            <table id="expensesTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Pago por</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const expenses = [
+            { date: '17/01/2024', category: 'Alimentação', description: 'Lanche na estrada', value: 73.50, paidBy: 'Carolina' },
+            { date: '17/01/2024', category: 'Alimentação', description: 'Água', value: 4.00, paidBy: 'Débora' },
+            { date: '18/01/2024', category: 'Alimentação', description: 'Restaurante', value: 13.00, paidBy: 'Carolina' },
+            { date: '18/01/2024', category: 'Alimentação', description: 'Lanche na estrada', value: 124.00, paidBy: 'Carolina' },
+            { date: '18/01/2024', category: 'Alimentação', description: 'Restaurante em Prado', value: 341.00, paidBy: 'Carolina' },
+            { date: '18/01/2024', category: 'Alimentação', description: 'Sorvete', value: 82.00, paidBy: 'Carolina' },
+            { date: '19/01/2024', category: 'Alimentação', description: 'Bar da Praia', value: 269.50, paidBy: 'Débora' },
+            { date: '19/01/2024', category: 'Alimentação', description: 'Picolé', value: 44.00, paidBy: 'Débora' },
+            { date: '19/01/2024', category: 'Alimentação', description: 'Pastel', value: 153.00, paidBy: 'Carolina' },
+            { date: '20/01/2024', category: 'Alimentação', description: 'Supermercado', value: 174.32, paidBy: 'Débora' },
+            { date: '20/01/2024', category: 'Alimentação', description: 'Barraca da Praia', value: 129.00, paidBy: 'Débora' },
+            { date: '20/01/2024', category: 'Alimentação', description: 'Sorvete', value: 70.00, paidBy: 'Carolina' },
+            { date: '21/01/2024', category: 'Alimentação', description: 'Sucos da Praia', value: 47.00, paidBy: 'Débora' },
+            { date: '21/01/2024', category: 'Alimentação', description: 'Pastel na Praia', value: 106.00, paidBy: 'Débora' },
+            { date: '21/01/2024', category: 'Alimentação', description: 'Coco na Praia', value: 50.00, paidBy: 'Carolina' },
+            { date: '22/01/2024', category: 'Alimentação', description: 'Almoço na praia', value: 357.00, paidBy: 'Carolina' },
+            { date: '17/01/2024', category: 'Hotelaria', description: 'Hotel em Ipatinga', value: 354.00, paidBy: 'Débora' },
+            { date: '20/01/2024', category: 'Fofura', description: 'Presente de Aniversário', value: 50.00, paidBy: 'Carolina' },
+            { date: '17/01/2024', category: 'Combustível', description: 'Gasolina', value: 162.33, paidBy: 'Carolina' },
+            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 178.01, paidBy: 'Carolina' },
+            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 150.54, paidBy: 'Débora' },
+            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 150.00, paidBy: 'Carolina' },
+            { date: '17/01/2024', category: 'Combustível', description: 'Gorjeta', value: 2.00, paidBy: 'Carolina' },
+            { date: '20/01/2024', category: 'Outras Despesas', description: 'Cera Depilação', value: 28.00, paidBy: 'Carolina' },
+            { date: '20/01/2024', category: 'Outras Despesas', description: 'Prancha', value: 110.00, paidBy: 'Carolina' }
+        ];
+
+        const colors = {
+            'Alimentação': '#FFD93D',
+            'Hotelaria': '#95D5B2',
+            'Combustível': '#FF9B9B',
+            'Fofura': '#FF99CC',
+            'Outras Despesas': '#8DB3E2'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Função para ordenação correta das datas
+            const parseDate = (dateStr) => {
+                const [day, month, year] = dateStr.split('/');
+                return new Date(year, month-1, day);
+            };
+
+            // Ordenar despesas por data
+            const sortedExpenses = [...expenses].sort((a, b) => 
+                parseDate(a.date) - parseDate(b.date)
+            );
+
+            // Calcular totais por categoria
+            const categoryTotals = expenses.reduce((acc, curr) => {
+                acc[curr.category] = (acc[curr.category] || 0) + curr.value;
+                return acc;
+            }, {});
+
+            // Configurar e criar gráfico de barras
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(categoryTotals),
+                    datasets: [{
+                        data: Object.values(categoryTotals),
+                        backgroundColor: Object.keys(categoryTotals).map(cat => colors[cat]),
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: value => `R$ ${value.toFixed(2)}` }
+                        }
+                    }
+                }
+            });
+
+            // Configurar e criar gráfico de pizza
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categoryTotals),
+                    datasets: [{
+                        data: Object.values(categoryTotals),
+                        backgroundColor: Object.keys(categoryTotals).map(cat => colors[cat])
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+
+            // Preencher tabela com dados ordenados
+            const tableBody = document.getElementById('tableBody');
+            const regularExpenses = sortedExpenses.filter(e => !['Combustível', 'Outras Despesas'].includes(e.category));
+            const fuelExpenses = sortedExpenses.filter(e => e.category === 'Combustível');
+            const otherExpenses = sortedExpenses.filter(e => e.category === 'Outras Despesas');
+
+            const regularTotal = regularExpenses.reduce((acc, curr) => acc + curr.value, 0);
+            const fuelTotal = fuelExpenses.reduce((acc, curr) => acc + curr.value, 0);
+            const otherTotal = otherExpenses.reduce((acc, curr) => acc + curr.value, 0);
+            const grandTotal = regularTotal + fuelTotal;
+
+            function createRow(expense) {
+                const isDebora = expense.paidBy === 'Débora';
+                return `
+                    <tr class="${isDebora ? 'paid-by-debora' : ''}">
+                        <td>${expense.date}</td>
+                        <td>${expense.category}</td>
+                        <td>${expense.description}</td>
+                        <td class="value-cell">R$ ${expense.value.toFixed(2)}</td>
+                        <td>${expense.paidBy}</td>
+                    </tr>
+                `;
+            }
+
+            let tableHTML = '';
+            
+            regularExpenses.forEach(expense => {
+                tableHTML += createRow(expense);
+            });
+
+            tableHTML += `
+                <tr class="total-row">
+                    <td colspan="3">Subtotal (Exceto Combustível e Outras Despesas)</td>
+                    <td class="value-cell">R$ ${regularTotal.toFixed(2)}</td>
+                    <td></td>
+                </tr>
+            `;
+
+            fuelExpenses.forEach(expense => {
+                tableHTML += createRow(expense);
+            });
+
+            tableHTML += `
+                <tr class="total-row">
+                    <td colspan="3">Subtotal Combustível</td>
+                    <td class="value-cell">R$ ${fuelTotal.toFixed(2)}</td>
+                    <td></td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3"><strong>Total (Exceto Outras Despesas)</strong></td>
+                    <td class="value-cell"><strong>R$ ${grandTotal.toFixed(2)}</strong></td>
+                    <td></td>
+                </tr>
+            `;
+
+            otherExpenses.forEach(expense => {
+                tableHTML += createRow(expense);
+            });
+
+            tableHTML += `
+                <tr class="total-row">
+                    <td colspan="3">Subtotal Outras Despesas</td>
+                    <td class="value-cell">R$ ${otherTotal.toFixed(2)}</td>
+                    <td></td>
+                </tr>
+            `;
+
+            tableBody.innerHTML = tableHTML;
+        });
+    </script>
+</body>
+</html>
