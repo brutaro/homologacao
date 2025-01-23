@@ -6,6 +6,7 @@
     <title>Dashboard de Despesas 2025</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <style>
+        /* [Manter todo o CSS anterior igual] */
         * {
             margin: 0;
             padding: 0;
@@ -143,7 +144,7 @@
                 </div>
                 <div class="summary-item eduardo">
                     <div>Total Eduardo</div>
-                    <div class="summary-value">R$ 368,00</div>
+                    <div class="summary-value">R$ 710,00</div>
                     <div>100% do total</div>
                 </div>
             </div>
@@ -167,6 +168,7 @@
                     <tr>
                         <th>Data</th>
                         <th>Categoria</th>
+                        <th>Tipo</th>
                         <th>Valor</th>
                         <th>Quem Gerou</th>
                         <th>Responsável</th>
@@ -176,13 +178,23 @@
                     <tr>
                         <td>21/01/2025</td>
                         <td>Eletrônicos</td>
+                        <td>Celular</td>
                         <td class="value-cell">R$ 368,00</td>
                         <td>Carol, Maria Eduarda e Mariana</td>
                         <td>Eduardo</td>
                     </tr>
                     <tr>
+                        <td>22/01/2025</td>
+                        <td>Mensalidades</td>
+                        <td>Clube</td>
+                        <td class="value-cell">R$ 342,00</td>
+                        <td>Todos</td>
+                        <td>Eduardo</td>
+                    </tr>
+                    <tr>
                         <td>-</td>
                         <td>Alimentação</td>
+                        <td>-</td>
                         <td class="value-cell">-</td>
                         <td>-</td>
                         <td>-</td>
@@ -190,6 +202,7 @@
                     <tr>
                         <td>-</td>
                         <td>Vestuário</td>
+                        <td>-</td>
                         <td class="value-cell">-</td>
                         <td>-</td>
                         <td>-</td>
@@ -197,13 +210,7 @@
                     <tr>
                         <td>-</td>
                         <td>Maquiagem</td>
-                        <td class="value-cell">-</td>
                         <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td>Academia</td>
                         <td class="value-cell">-</td>
                         <td>-</td>
                         <td>-</td>
@@ -215,26 +222,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Dados do gráfico de categorias
+            // Dados atualizados
             const categoryData = {
-                labels: ['Eletrônicos', 'Alimentação', 'Vestuário', 'Maquiagem', 'Academia'],
+                labels: ['Eletrônicos', 'Mensalidades', 'Alimentação', 'Vestuário', 'Maquiagem'],
                 datasets: [{
-                    data: [368, 0, 0, 0, 0],
+                    data: [368, 342, 0, 0, 0],
                     backgroundColor: [
                         '#88c9b9',
+                        '#FFD8B1',
                         '#ffb3ba',
                         '#ffdfba',
-                        '#bae1ff',
-                        '#cbaacb'
+                        '#bae1ff'
                     ]
                 }]
             };
 
-            // Dados do gráfico de responsáveis
             const pieData = {
                 labels: ['Eduardo', 'Carolina'],
                 datasets: [{
-                    data: [368, 0],
+                    data: [710, 0],
                     backgroundColor: ['#d6eaff', '#b8e0d2']
                 }]
             };
@@ -244,7 +250,14 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'right' }
+                    legend: { position: 'right' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` R$ ${context.parsed.toFixed(2)}`;
+                            }
+                        }
+                    }
                 }
             };
 
