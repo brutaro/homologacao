@@ -166,12 +166,12 @@
             <div class="summary-grid">
                 <div class="summary-item carolina">
                     <div>Total Carolina</div>
-                    <div class="summary-value">R$ 2.493,04</div> <!-- Atualizado -->
+                    <div class="summary-value">R$ 3.654,00</div>
                     <div class="summary-label">(Exceto Outras Despesas)</div>
                 </div>
                 <div class="summary-item debora">
                     <div>Total Débora</div>
-                    <div class="summary-value">R$ 1.278,36</div>
+                    <div class="summary-value">R$ 2.299,06</div>
                     <div class="summary-label">(Exceto Outras Despesas)</div>
                 </div>
                 <div class="summary-item outras">
@@ -215,71 +215,81 @@
 
     <script>
         const expenses = [
-            { date: '17/01/2024', category: 'Alimentação', description: 'Lanche na estrada', value: 73.50, paidBy: 'Carolina' },
-            { date: '17/01/2024', category: 'Alimentação', description: 'Água', value: 4.00, paidBy: 'Débora' },
-            { date: '18/01/2024', category: 'Alimentação', description: 'Restaurante', value: 13.00, paidBy: 'Carolina' },
-            { date: '18/01/2024', category: 'Alimentação', description: 'Lanche na estrada', value: 124.00, paidBy: 'Carolina' },
-            { date: '18/01/2024', category: 'Alimentação', description: 'Restaurante em Prado', value: 341.00, paidBy: 'Carolina' },
-            { date: '18/01/2024', category: 'Alimentação', description: 'Sorvete', value: 82.00, paidBy: 'Carolina' },
-            { date: '19/01/2024', category: 'Alimentação', description: 'Bar da Praia', value: 269.50, paidBy: 'Débora' },
-            { date: '19/01/2024', category: 'Alimentação', description: 'Picolé', value: 44.00, paidBy: 'Débora' },
-            { date: '19/01/2024', category: 'Alimentação', description: 'Pastel', value: 153.00, paidBy: 'Carolina' },
-            { date: '20/01/2024', category: 'Alimentação', description: 'Supermercado', value: 174.32, paidBy: 'Débora' },
-            { date: '20/01/2024', category: 'Alimentação', description: 'Barraca da Praia', value: 129.00, paidBy: 'Débora' },
-            { date: '20/01/2024', category: 'Alimentação', description: 'Sorvete', value: 70.00, paidBy: 'Carolina' },
-            { date: '21/01/2024', category: 'Alimentação', description: 'Sucos da Praia', value: 47.00, paidBy: 'Débora' },
-            { date: '21/01/2024', category: 'Alimentação', description: 'Pastel na Praia', value: 106.00, paidBy: 'Débora' },
-            { date: '21/01/2024', category: 'Alimentação', description: 'Coco na Praia', value: 50.00, paidBy: 'Carolina' },
-            { date: '22/01/2024', category: 'Alimentação', description: 'Almoço na praia', value: 357.00, paidBy: 'Carolina' },
-            { date: '17/01/2024', category: 'Hotelaria', description: 'Hotel em Ipatinga', value: 354.00, paidBy: 'Débora' },
-            { date: '20/01/2024', category: 'Fofura', description: 'Presente de Aniversário', value: 50.00, paidBy: 'Carolina' },
-            { date: '17/01/2024', category: 'Combustível', description: 'Gasolina', value: 162.33, paidBy: 'Carolina' },
-            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 178.01, paidBy: 'Carolina' },
-            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 150.54, paidBy: 'Débora' },
-            { date: '18/01/2024', category: 'Combustível', description: 'Gasolina', value: 150.00, paidBy: 'Carolina' },
-            { date: '17/01/2024', category: 'Combustível', description: 'Gorjeta', value: 2.00, paidBy: 'Carolina' },
-            { date: '20/01/2024', category: 'Outras Despesas', description: 'Cera Depilação', value: 28.00, paidBy: 'Carolina' },
-            { date: '20/01/2024', category: 'Outras Despesas', description: 'Prancha', value: 110.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Outras Despesas', description: 'Empada na praia', value: 60.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Outras Despesas', description: 'Picolé', value: 30.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Outras Despesas', description: 'Academia', value: 100.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Alimentação', description: 'Supermercado', value: 136.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Alimentação', description: 'Sacolão', value: 27.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Alimentação', description: 'Feira', value: 20.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Alimentação', description: 'Abacaxi', value: 12.00, paidBy: 'Carolina' },
-            { date: '23/01/2024', category: 'Alimentação', description: 'Barraca da Praia', value: 492.20, paidBy: 'Carolina' },
+            { date: '17/01/2025', category: 'Alimentação', description: 'Lanche na estrada', value: 73.50, paidBy: 'Carolina' },
+            { date: '17/01/2025', category: 'Alimentação', description: 'Água', value: 4.00, paidBy: 'Débora' },
+            { date: '18/01/2025', category: 'Alimentação', description: 'Restaurante', value: 13.00, paidBy: 'Carolina' },
+            { date: '18/01/2025', category: 'Alimentação', description: 'Lanche na estrada', value: 124.00, paidBy: 'Carolina' },
+            { date: '18/01/2025', category: 'Alimentação', description: 'Restaurante em Prado', value: 341.00, paidBy: 'Carolina' },
+            { date: '18/01/2025', category: 'Alimentação', description: 'Sorvete', value: 82.00, paidBy: 'Carolina' },
+            { date: '19/01/2025', category: 'Alimentação', description: 'Bar da Praia', value: 269.50, paidBy: 'Débora' },
+            { date: '19/01/2025', category: 'Alimentação', description: 'Picolé', value: 44.00, paidBy: 'Débora' },
+            { date: '19/01/2025', category: 'Alimentação', description: 'Pastel', value: 153.00, paidBy: 'Carolina' },
+            { date: '20/01/2025', category: 'Alimentação', description: 'Supermercado', value: 174.32, paidBy: 'Débora' },
+            { date: '20/01/2025', category: 'Alimentação', description: 'Barraca da Praia', value: 129.00, paidBy: 'Débora' },
+            { date: '20/01/2025', category: 'Alimentação', description: 'Sorvete', value: 70.00, paidBy: 'Carolina' },
+            { date: '21/01/2025', category: 'Alimentação', description: 'Sucos da Praia', value: 47.00, paidBy: 'Débora' },
+            { date: '21/01/2025', category: 'Alimentação', description: 'Pastel na Praia', value: 106.00, paidBy: 'Débora' },
+            { date: '21/01/2025', category: 'Alimentação', description: 'Coco na Praia', value: 50.00, paidBy: 'Carolina' },
+            { date: '22/01/2025', category: 'Alimentação', description: 'Almoço na praia', value: 357.00, paidBy: 'Carolina' },
+            { date: '17/01/2025', category: 'Hotelaria', description: 'Hotel em Ipatinga', value: 354.00, paidBy: 'Débora' },
+            { date: '20/01/2025', category: 'Presentes', description: 'Presente de Aniversário', value: 50.00, paidBy: 'Carolina' },
+            { date: '17/01/2025', category: 'Combustível', description: 'Gasolina', value: 162.33, paidBy: 'Carolina' },
+            { date: '18/01/2025', category: 'Combustível', description: 'Gasolina', value: 178.01, paidBy: 'Carolina' },
+            { date: '18/01/2025', category: 'Combustível', description: 'Gasolina', value: 150.54, paidBy: 'Débora' },
+            { date: '18/01/2025', category: 'Combustível', description: 'Gasolina', value: 150.00, paidBy: 'Carolina' },
+            { date: '17/01/2025', category: 'Combustível', description: 'Gorjeta', value: 2.00, paidBy: 'Carolina' },
+            { date: '20/01/2025', category: 'Outras Despesas', description: 'Cera Depilação', value: 28.00, paidBy: 'Carolina' },
+            { date: '20/01/2025', category: 'Outras Despesas', description: 'Prancha', value: 110.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Outras Despesas', description: 'Empada na praia', value: 60.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Outras Despesas', description: 'Picolé', value: 30.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Outras Despesas', description: 'Academia', value: 100.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Alimentação', description: 'Supermercado', value: 136.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Alimentação', description: 'Sacolão', value: 27.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Alimentação', description: 'Feira', value: 20.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Alimentação', description: 'Abacaxi', value: 12.00, paidBy: 'Carolina' },
+            { date: '23/01/2025', category: 'Alimentação', description: 'Barraca da Praia', value: 492.20, paidBy: 'Carolina' },
             { date: '24/01/2025', category: 'Alimentação', description: 'Praia', value: 19.80, paidBy: 'Carolina' },
             { date: '24/01/2025', category: 'Alimentação', description: 'Bebidas para praia', value: 104.00, paidBy: 'Carolina' },
-            { date: '24/01/2025', category: 'Alimentação', description: 'Açaí', value: 62.00, paidBy: 'Débora' }];<!-- Nova despesa -->
+            { date: '24/01/2025', category: 'Alimentação', description: 'Açaí', value: 62.00, paidBy: 'Débora' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Feirinha', value: 24.00, paidBy: 'Débora' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Bebidas para praia', value: 100.00, paidBy: 'Débora' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Açaí', value: 72.00, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Combustível', description: 'Gasolina', value: 74.26, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Jantar', value: 440.00, paidBy: 'Débora' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Sorvete', value: 47.90, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Jantar', value: 340.00, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Jantar', value: 194.70, paidBy: 'Débora' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Almoço Corumbau', value: 377.00, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Alimentação', description: 'Sorvete', value: 63.00, paidBy: 'Carolina' },
+            // Novas despesas adicionadas
+            { date: '25/01/2025', category: 'Presentes', description: 'Presentes', value: 63.00, paidBy: 'Carolina' },
+            { date: '25/01/2025', category: 'Pagamentos', description: 'Pagamento Cátia', value: 200.00, paidBy: 'Débora' }
         ];
 
         const colors = {
             'Alimentação': '#FFD93D',
             'Hotelaria': '#95D5B2',
             'Combustível': '#FF9B9B',
-            'Fofura': '#FF99CC',
-            'Outras Despesas': '#8DB3E2'
+            'Presentes': '#FF99CC',
+            'Outras Despesas': '#8DB3E2',
+            'Pagamentos': '#A78BFA'
         };
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Função para ordenação correta
             const parseDate = (dateStr) => {
                 const [day, month, year] = dateStr.split('/');
                 return new Date(year, month-1, day);
             };
 
-            // Ordenar despesas
             const sortedExpenses = [...expenses].sort((a, b) => 
                 parseDate(a.date) - parseDate(b.date)
             );
 
-            // Calcular totais
             const categoryTotals = expenses.reduce((acc, curr) => {
                 acc[curr.category] = (acc[curr.category] || 0) + curr.value;
                 return acc;
             }, {});
 
-            // Configurar e criar gráfico de barras
             const barCtx = document.getElementById('barChart').getContext('2d');
             new Chart(barCtx, {
                 type: 'bar',
@@ -304,7 +314,6 @@
                 }
             });
 
-            // Configurar e criar gráfico de pizza
             const pieCtx = document.getElementById('pieChart').getContext('2d');
             new Chart(pieCtx, {
                 type: 'doughnut',
@@ -322,7 +331,6 @@
                 }
             });
 
-            // Preencher tabela com dados ordenados
             const tableBody = document.getElementById('tableBody');
             const regularExpenses = sortedExpenses.filter(e => !['Combustível', 'Outras Despesas'].includes(e.category));
             const fuelExpenses = sortedExpenses.filter(e => e.category === 'Combustível');
