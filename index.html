@@ -1,44 +1,4 @@
--- Criar extensão uuid se ainda não existir
-create extension if not exists "uuid-ossp";
-
--- Recriar a tabela com a nova estrutura
-DROP TABLE IF EXISTS expenses;
-CREATE TABLE expenses (
-    id uuid default uuid_generate_v4() primary key,
-    date date not null,
-    category text not null,
-    description text not null,
-    value numeric(10,2) not null,
-    generated_by text not null,
-    paid_by text not null,
-    created_at timestamptz default now() not null
-);
-
--- Inserir dados atualizados
-INSERT INTO expenses (date, category, description, value, generated_by, paid_by) 
-VALUES 
-    ('2025-01-21', 'Eletrônicos', 'Celular', 368.00, 'Carol, Maria Eduarda e Mariana', 'Eduardo'),
-    ('2025-01-22', 'Mensalidades', 'Clube', 342.00, 'Todos', 'Eduardo'),
-    ('2025-01-24', 'Terapia', 'Sessão de terapia', 450.00, 'Maria Eduarda', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Case couro magsafe Iphone 14', 199.90, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Película de cerâmica iPhone 13 Pro', 70.00, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Strap phone premium brilhante', 59.90, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Case especial Samsung S21 SE', 59.90, 'Mariana', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Pulseira Apple Watch Sport pro 38mm', 99.90, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Fone de ouvido BT My Music Danx', 249.90, 'Mariana', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Fone de ouvido BT My Music pro Danx', 249.90, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Smartwatch 8 pro', 499.90, 'Carolina', 'Carolina'),
-    ('2025-01-29', 'Eletrônicos', 'Película de cerâmica fosca Samsung S21 SE', 70.00, 'Mariana', 'Carolina'),
-    ('2025-01-31', 'Pagamentos', 'Condominio do Sho', 2.50, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'La Cremeria Venez', 48.50, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'La Cremeria Venez', 21.00, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Vestuário', 'Centauro CE12', 724.98, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'Vivapizza', 6.00, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'Tradição de Minas', 173.19, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'Sacolão Lisboa', 144.23, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'Cruzeiro do Sul', 34.95, 'Carolina', 'Carolina'),
-    ('2025-01-31', 'Alimentação', 'Rocket Confeitaria', 31.00, 'Carolina', 'Carolina');
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
