@@ -151,13 +151,13 @@
         <div class="summary-cards">
             <div class="card">
                 <h2>Total Carolina</h2>
-                <div class="value">R$ 6.483,19</div>
-                <div class="percentage">90,13%</div>
+                <div class="value">R$ 13.688,12</div>
+                <div class="percentage">95,07%</div>
             </div>
             <div class="card">
                 <h2>Total Eduardo</h2>
                 <div class="value">R$ 710,00</div>
-                <div class="percentage">9,87%</div>
+                <div class="percentage">4,93%</div>
             </div>
         </div>
         <div class="charts-container">
@@ -213,9 +213,11 @@
                     <tr><td>02/02/2025</td><td>Alimentação</td><td>Supermercado da semana EPA</td><td>889,67</td><td>Todas</td><td>Carolina</td></tr>
                     <tr><td>02/02/2025</td><td>Alimentação</td><td>Tradição de Minas - almoço</td><td>233,27</td><td>Todas</td><td>Carolina</td></tr>
                     <tr><td>02/02/2025</td><td>Combustível</td><td>Macedo e Macedo Postos</td><td>211,08</td><td>Carolina</td><td>Carolina</td></tr>
+                    <tr><td>03/03/2025</td><td>Material escolar</td><td>Papelaria Minas Brasil</td><td>526,80</td><td>Maria Eduarda/ Mariana</td><td>Carolina</td></tr>
+                    <tr><td>03/03/2025</td><td>Pagamentos</td><td>IPVA do Carro</td><td>6678,13</td><td>Carolina</td><td>Carolina</td></tr>
                     <tr class="total-row">
                         <td colspan="3">Total Geral</td>
-                        <td>R$ 7.193,19</td>
+                        <td>R$ 14.398,12</td>
                         <td colspan="2"></td>
                     </tr>
                 </tbody>
@@ -225,19 +227,20 @@
     <script>
         // Cálculos atualizados por categoria
         const categoryTotals = {
-            'Eletrônicos': 1927.30, // (368 + 199.90 + 70 + 59.90 + 59.90 + 99.90 + 249.90 + 249.90 + 499.90 + 70)
+            'Eletrônicos': 1927.30,
             'Mensalidades': 342.00,
             'Terapia': 450.00,
-            'Pagamentos': 2.50,
-            'Alimentação': 1651.61, // (48.50 + 21 + 6 + 173.19 + 144.23 + 34.95 + 31 + 49.40 + 8.50 + 61.90 + 889.67 + 233.27)
-            'Vestuário': 1738.01, // (724.98 + 873.50 + 119.53 + 20)
+            'Pagamentos': 6680.63, // (2.50 + 6678.13)
+            'Alimentação': 1651.61,
+            'Vestuário': 1738.01,
             'Farmácia': 820.69,
-            'Combustível': 211.08
+            'Combustível': 211.08,
+            'Material escolar': 526.80
         };
 
         // Totais por responsável atualizados
         const responsibleTotals = {
-            'Carolina': 6483.19,
+            'Carolina': 13688.12,
             'Eduardo': 710.00
         };
 
@@ -257,7 +260,8 @@
                         '#9966FF', // Alimentação
                         '#FF9F40', // Vestuário
                         '#EA80FC', // Farmácia
-                        '#00E676'  // Combustível
+                        '#00E676', // Combustível
+                        '#607D8B'  // Material escolar
                     ]
                 }]
             },
