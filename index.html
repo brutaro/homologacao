@@ -1,408 +1,282 @@
-body {
-        background-color: #f5f5f5;
-        padding: 20px;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .header {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        text-align: center;
-    }
-
-    .header h1 {
-        color: #2c3e50;
-        margin-bottom: 5px;
-    }
-
-    .header p {
-        color: #666;
-        font-size: 0.9em;
-    }
-
-    .charts-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-
-    @media (max-width: 768px) {
-        .charts-container {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .chart-card {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        height: 400px;
-    }
-
-    .table-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        overflow-x: auto;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        min-width: 800px;
-    }
-
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f8f9fa;
-        color: #666;
-        position: sticky;
-        top: 0;
-    }
-
-    .summary-card {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-    }
-
-    .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin-top: 15px;
-    }
-
-    .summary-item {
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    .summary-item.carolina {
-        background-color: #b8e0d2;
-    }
-
-    .summary-item.eduardo {
-        background-color: #d6eaff;
-    }
-
-    .summary-value {
-        font-size: 1.5em;
-        font-weight: bold;
-        margin: 10px 0;
-    }
-
-    .value-cell {
-        text-align: right;
-    }
-
-    .total-row {
-        font-weight: bold;
-        background-color: #f8f9fa;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Despesas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<body class="bg-gray-50">
+    <div class="p-4">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Dashboard de Despesas</h1>
+            <p class="text-gray-600">Acompanhamento de gastos por categoria e responsável</p>
+        </div>
 
-<body>
-
-<div class="container">
-
-<div class="header">
-
-<h1>Resumo de Despesas 2025</h1>
-
-<p>(Carol, Maria Eduarda e Mariana)</p>
-
-</div>
-<div class="summary-card">
-        <div class="summary-grid">
-            <!-- Cálculo dos totais por responsável -->
-            <div class="summary-item carolina">
-                <div>Total Carolina</div>
-                <div class="summary-value">R$ 5.810,48</div>
-                <div>92,62% do total</div>
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Total Card -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Total de Despesas</h3>
+                <p class="text-3xl font-bold text-blue-600">R$ 7.193,19</p>
             </div>
-            <div class="summary-item eduardo">
-                <div>Total Eduardo</div>
-                <div class="summary-value">R$ 710,00</div>
-                <div>7,38% do total</div>
+
+            <!-- Carolina Card -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Carolina</h3>
+                <p class="text-3xl font-bold text-green-600">R$ 6.483,19</p>
+                <p class="text-sm text-gray-600">90,13% do total</p>
+            </div>
+
+            <!-- Eduardo Card -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Eduardo</h3>
+                <p class="text-3xl font-bold text-purple-600">R$ 710,00</p>
+                <p class="text-sm text-gray-600">9,87% do total</p>
+            </div>
+
+            <!-- Data Card -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Período</h3>
+                <p class="text-3xl font-bold text-gray-800">Fevereiro/2025</p>
+            </div>
+        </div>
+
+        <!-- Charts Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Pie Chart -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Distribuição por Categoria</h3>
+                <canvas id="categoryPieChart"></canvas>
+            </div>
+
+            <!-- Bar Chart -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Gastos por Responsável</h3>
+                <canvas id="responsibleBarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Detalhamento de Despesas</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3">Data</th>
+                            <th class="px-6 py-3">Categoria</th>
+                            <th class="px-6 py-3">Descrição</th>
+                            <th class="px-6 py-3">Valor</th>
+                            <th class="px-6 py-3">Beneficiário</th>
+                            <th class="px-6 py-3">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <!-- Despesas anteriores -->
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Eletrônicos</td>
+                            <td class="px-6 py-4">iPhone 15</td>
+                            <td class="px-6 py-4">R$ 1.927,30</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Mensalidades</td>
+                            <td class="px-6 py-4">Academia</td>
+                            <td class="px-6 py-4">R$ 342,00</td>
+                            <td class="px-6 py-4">Eduardo</td>
+                            <td class="px-6 py-4">Eduardo</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Terapia</td>
+                            <td class="px-6 py-4">Consulta</td>
+                            <td class="px-6 py-4">R$ 450,00</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Alimentação</td>
+                            <td class="px-6 py-4">Mercado</td>
+                            <td class="px-6 py-4">R$ 458,87</td>
+                            <td class="px-6 py-4">Ambos</td>
+                            <td class="px-6 py-4">Eduardo</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Vestuário</td>
+                            <td class="px-6 py-4">Roupas</td>
+                            <td class="px-6 py-4">R$ 724,98</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">01/02/2025</td>
+                            <td class="px-6 py-4">Pagamentos</td>
+                            <td class="px-6 py-4">Taxa</td>
+                            <td class="px-6 py-4">R$ 2,50</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <!-- Novas despesas -->
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">02/02/2025</td>
+                            <td class="px-6 py-4">Alimentação</td>
+                            <td class="px-6 py-4">Mercado Extra</td>
+                            <td class="px-6 py-4">R$ 1.242,74</td>
+                            <td class="px-6 py-4">Ambos</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">02/02/2025</td>
+                            <td class="px-6 py-4">Vestuário</td>
+                            <td class="px-6 py-4">Shein</td>
+                            <td class="px-6 py-4">R$ 1.013,03</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">02/02/2025</td>
+                            <td class="px-6 py-4">Farmácia</td>
+                            <td class="px-6 py-4">Medicamentos</td>
+                            <td class="px-6 py-4">R$ 820,69</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">02/02/2025</td>
+                            <td class="px-6 py-4">Combustível</td>
+                            <td class="px-6 py-4">Gasolina</td>
+                            <td class="px-6 py-4">R$ 211,08</td>
+                            <td class="px-6 py-4">Carolina</td>
+                            <td class="px-6 py-4">Carolina</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-    <div class="charts-container">
-        <div class="chart-card">
-            <h2>Despesas por Categoria</h2>
-            <canvas id="categoryChart"></canvas>
-        </div>
-        <div class="chart-card">
-            <h2>Distribuição por Responsável</h2>
-            <canvas id="pieChart"></canvas>
-        </div>
-    </div>
-    <div class="table-container">
-        <h2>Detalhamento de Despesas</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Quem Gerou</th>
-                    <th>Quem Pagou</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Detalhamento das despesas -->
-                <tr>
-                    <td>21/01/2025</td>
-                    <td>Eletrônicos</td>
-                    <td>Celular</td>
-                    <td class="value-cell">R$ 368,00</td>
-                    <td>Carol, Maria Eduarda e Mariana</td>
-                    <td>Eduardo</td>
-                </tr>
-                <tr>
-                    <td>22/01/2025</td>
-                    <td>Mensalidades</td>
-                    <td>Clube</td>
-                    <td class="value-cell">R$ 342,00</td>
-                    <td>Todos</td>
-                    <td>Eduardo</td>
-                </tr>
-                <!-- Aqui vai o restante do detalhamento -->
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    // Cálculos e atualização dos gráficos
-    // Serão adicionados na próxima parte do código
-</script>
-<div class="table-container">
-        <h2>Detalhamento de Despesas</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Quem Gerou</th>
-                    <th>Quem Pagou</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Detalhamento das despesas -->
-                <tr>
-                    <td>21/01/2025</td>
-                    <td>Eletrônicos</td>
-                    <td>Celular</td>
-                    <td class="value-cell">R$ 368,00</td>
-                    <td>Carol, Maria Eduarda e Mariana</td>
-                    <td>Eduardo</td>
-                </tr>
-                <tr>
-                    <td>22/01/2025</td>
-                    <td>Mensalidades</td>
-                    <td>Clube</td>
-                    <td class="value-cell">R$ 342,00</td>
-                    <td>Todos</td>
-                    <td>Eduardo</td>
-                </tr>
-                <tr>
-                    <td>24/01/2025</td>
-                    <td>Terapia</td>
-                    <td>Sessão de terapia</td>
-                    <td class="value-cell">R$ 450,00</td>
-                    <td>Maria Eduarda</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>29/01/2025</td>
-                    <td>Eletrônicos</td>
-                    <td>Case couro magsafe Iphone 14</td>
-                    <td class="value-cell">R$ 199,90</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <!-- Aqui vai o restante do detalhamento -->
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Vestuário</td>
-                    <td>Sandra Beatriz</td>
-                    <td class="value-cell">R$ 873,50</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Vestuário</td>
-                    <td>Jmm Comercial</td>
-                    <td class="value-cell">R$ 119,53</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Farmácia</td>
-                    <td>Drogaria Araújo</td>
-                    <td class="value-cell">R$ 820,69</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Alimentação</td>
-                    <td>Vivenda do Camarão</td>
-                    <td class="value-cell">R$ 49,40</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Alimentação</td>
-                    <td>Vivenda do Camarão</td>
-                    <td class="value-cell">R$ 8,50</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Alimentação</td>
-                    <td>KFC Shopping Boy</td>
-                    <td class="value-cell">R$ 61,90</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>01/02/2025</td>
-                    <td>Vestuário</td>
-                    <td>Direção</td>
-                    <td class="value-cell">R$ 20,00</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>02/02/2025</td>
-                    <td>Alimentação</td>
-                    <td>Supermercado da semana EPA</td>
-                    <td class="value-cell">R$ 889,67</td>
-                    <td>Todas</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>02/02/2025</td>
-                    <td>Alimentação</td>
-                    <td>Tradição de Minas - almoço</td>
-                    <td class="value-cell">R$ 233,27</td>
-                    <td>Todas</td>
-                    <td>Carolina</td>
-                </tr>
-                <tr>
-                    <td>02/02/2025</td>
-                    <td>Combustível</td>
-                    <td>Macedo e Macedo Postos</td>
-                    <td class="value-cell">R$ 211,08</td>
-                    <td>Carolina</td>
-                    <td>Carolina</td>
-                </tr>
-
-                <!-- Linha de totalização -->
-                <tr class="total-row">
-                    <td colspan="3"><strong>Total Geral</strong></td>
-                    <td class="value-cell"><strong>R$ 6.270,48</strong></td>
-                    <td colspan="2"></td>
-                </tr>
-                <tr class="total-row">
-                    <td colspan="3"><strong>Total Carolina</strong></td>
-                    <td class="value-cell"><strong>R$ 5.810,48</strong></td>
-                    <td colspan="2"></td>
-                </tr>
-                <tr class="total-row">
-                    <td colspan="3"><strong>Total Eduardo</strong></td>
-                    <td class="value-cell"><strong>R$ 710,00</strong></td>
-                    <td colspan="2"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        // Configuração do gráfico de pizza (categorias)
         const categoryData = {
-            labels: ['Eletrônicos', 'Mensalidades', 'Terapia', 'Alimentação', 'Vestuário', 'Farmácia', 'Pagamentos', 'Combustível'],
+            labels: ['Eletrônicos', 'Mensalidades', 'Terapia', 'Alimentação', 'Vestuário', 'Pagamentos', 'Farmácia', 'Combustível'],
             datasets: [{
-                data: [1927.30, 342.00, 450.00, 1957.16, 1737.01, 820.69, 2.50, 211.08],
+                data: [1927.30, 342.00, 450.00, 1701.61, 1738.01, 2.50, 820.69, 211.08],
                 backgroundColor: [
-                    '#88c9b9',
-                    '#FFA07A',
-                    '#cbaacb',
-                    '#ffb3ba',
-                    '#bae1ff',
-                    '#c39bd3',
-                    '#FFE4B5',
-                    '#F4A460'
-                ],
-                borderWidth: 0
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF',
+                    '#FF9F40',
+                    '#33CC33',
+                    '#FF99CC'
+                ]
             }]
         };
 
-        const pieData = {
-            labels: ['Eduardo', 'Carolina'],
-            datasets: [{
-                data: [710, 5560.48],
-                backgroundColor: ['#d6eaff', '#b8e0d2']
-            }]
-        };
-
-        const chartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'right' },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return ` R$ ${context.parsed.toFixed(2)}`;
+        const categoryConfig = {
+            type: 'pie',
+            data: categoryData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                const value = context.raw;
+                                label += new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(value);
+                                return label;
+                            }
                         }
                     }
                 }
             }
         };
 
-        new Chart(document.getElementById('categoryChart'), {
-            type: 'doughnut',
-            data: categoryData,
-            options: chartOptions
-        });
+        // Configuração do gráfico de barras (responsáveis)
+        const responsibleData = {
+            labels: ['Carolina', 'Eduardo'],
+            datasets: [{
+                label: 'Valor Total',
+                data: [6483.19, 710.00],
+                backgroundColor: ['#4BC0C0', '#FF6384'],
+                borderColor: ['#4BC0C0', '#FF6384'],
+                borderWidth: 1
+            }]
+        };
 
-        new Chart(document.getElementById('pieChart'), {
-            type: 'pie',
-            data: pieData,
-            options: chartOptions
-        });
-    });
-</script>
+        const responsibleConfig = {
+            type: 'bar',
+            data: responsibleData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(value);
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                const value = context.raw;
+                                label += new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(value);
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Renderização dos gráficos
+        window.onload = function() {
+            const categoryPieChart = new Chart(
+                document.getElementById('categoryPieChart'),
+                categoryConfig
+            );
+
+            const responsibleBarChart = new Chart(
+                document.getElementById('responsibleBarChart'),
+                responsibleConfig
+            );
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>
