@@ -3,366 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumo de despesas 2025</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Mapa Mental Orgânico - LideraGov</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <style>
+        :root {
+            --primary: #fd8127;
+            --primary-light: #ff9f57;
+            --primary-dark: #e66d1f;
+            --secondary: #4a4a4a;
+            --contextualizacao: #FF6B6B;
+            --estrategias: #4ECDC4;
+            --implementacao: #45B7D1;
+            --monitoramento: #96CEB4;
+            --recursos: #FFEEAD;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: #f5f5f5;
-            padding: 20px;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .title {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .card .value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c5282;
-            margin-bottom: 10px;
-        }
-
-        .card .percentage {
-            color: #666;
-            font-size: 16px;
-            padding: 5px 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .chart-wrapper {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            height: 400px;
-        }
-
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            overflow-x: auto;
-            margin-top: 30px;
-        }
-
-        table {
+        .mindmap-container {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            max-width: 1600px;
+            height: 90vh;
+            position: relative;
+            overflow: auto;
         }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        .center-node {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 2;
+            min-width: 300px;
+            border: 3px solid var(--primary);
         }
 
-        th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-            color: #333;
+        .center-node h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
         }
 
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
+        .center-node p {
+            font-size: 0.9rem;
+            color: var(--secondary);
         }
 
-        tr:hover {
-            background-color: #f0f4f8;
+        .branch {
+            position: absolute;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1;
+            width: 220px;
         }
 
-        .total-row {
-            font-weight: bold;
-            background-color: #e2e8f0 !important;
+        .branch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
         }
 
-        .total-row td {
-            border-top: 2px solid #cbd5e0;
+        .branch h2 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: white;
         }
 
-        @media (max-width: 768px) {
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .table-container {
-                padding: 10px;
-            }
-            
-            th, td {
-                padding: 8px;
-                font-size: 14px;
-            }
+        .subnodes {
+            position: absolute;
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            width: 180px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .subnodes.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .subnode {
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .subnode:hover {
+            background: #f0f0f0;
+        }
+
+        .connection {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .connection path {
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            transition: all 0.3s ease;
+        }
+
+        /* Cores específicas para cada ramo */
+        .contextualizacao {
+            background: var(--contextualizacao);
+            border: 2px solid var(--contextualizacao);
+        }
+        .connection.contextualizacao path {
+            stroke: var(--contextualizacao);
+        }
+
+        .estrategias {
+            background: var(--estrategias);
+            border: 2px solid var(--estrategias);
+        }
+        .connection.estrategias path {
+            stroke: var(--estrategias);
+        }
+
+        .implementacao {
+            background: var(--implementacao);
+            border: 2px solid var(--implementacao);
+        }
+        .connection.implementacao path {
+            stroke: var(--implementacao);
+        }
+
+        .monitoramento {
+            background: var(--monitoramento);
+            border: 2px solid var(--monitoramento);
+        }
+        .connection.monitoramento path {
+            stroke: var(--monitoramento);
+        }
+
+        .recursos {
+            background: var(--recursos);
+            border: 2px solid var(--recursos);
+        }
+        .connection.recursos path {
+            stroke: var(--recursos);
+        }
+
+        /* Posicionamento dos ramos principais */
+        .branch.main-contextualizacao {
+            left: 25%;
+            top: 30%;
+        }
+        .branch.main-estrategias {
+            right: 25%;
+            top: 30%;
+        }
+        .branch.main-implementacao {
+            left: 20%;
+            bottom: 30%;
+        }
+        .branch.main-monitoramento {
+            right: 20%;
+            bottom: 30%;
+        }
+        .branch.main-recursos {
+            left: 50%;
+            bottom: 20%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Resumo de despesas 2025 (Carol, Maria Eduarda e Mariana)</h1>
-        
-        <div class="summary-cards">
-            <div class="card">
-                <h2>Total Carolina</h2>
-                <div class="value">R$ 14.510,20</div>
-                <div class="percentage">95,33%</div>
-            </div>
-            <div class="card">
-                <h2>Total Eduardo</h2>
-                <div class="value">R$ 710,00</div>
-                <div class="percentage">4,67%</div>
-            </div>
-        </div>
-        <div class="charts-container">
-            <div class="chart-wrapper">
-                <canvas id="categoryChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="responsibleChart"></canvas>
-            </div>
+    <div class="mindmap-container">
+        <!-- Nó Central -->
+        <div class="center-node">
+            <h1>Plano de Comunicação LideraGov</h1>
+            <p>Mapa Mental Estratégico</p>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Categoria</th>
-                        <th>Descrição</th>
-                        <th>Valor (R$)</th>
-                        <th>Beneficiário</th>
-                        <th>Responsável</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>21/01/2025</td><td>Eletrônicos</td><td>Celular</td><td>368,00</td><td>Carol, Maria Eduarda e Mariana</td><td>Eduardo</td></tr>
-                    <tr><td>22/01/2025</td><td>Mensalidades</td><td>Clube</td><td>342,00</td><td>Todas</td><td>Eduardo</td></tr>
-                    <tr><td>24/01/2025</td><td>Terapia</td><td>Sessão de terapia</td><td>450,00</td><td>Maria Eduarda</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Case couro magsafe Iphone 14</td><td>199,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Película de cerâmica iPhone 13 Pro</td><td>70,00</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Strap phone premium brilhante</td><td>59,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Case especial Samsung S21 SE</td><td>59,90</td><td>Mariana</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Pulseira Apple Watch Sport pro 38mm</td><td>99,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Fone de ouvido BT My Music Danx</td><td>249,90</td><td>Mariana</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Fone de ouvido BT My Music pro Danx</td><td>249,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Smartwatch 8 pro</td><td>499,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>29/01/2025</td><td>Eletrônicos</td><td>Película de cerâmica fosca Samsung S21 sE</td><td>70,00</td><td>Mariana</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Pagamentos</td><td>Condominio do Sho</td><td>2,50</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>La Cremeria Venez</td><td>48,50</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>La Cremeria Venez</td><td>21,00</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Vestuário</td><td>Centauro CE12</td><td>724,98</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>Vivapizza</td><td>6,00</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>Tradição de Minas</td><td>173,19</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>Sacolão Lisboa</td><td>144,23</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>Cruzeiro do Sul</td><td>34,95</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>31/01/2025</td><td>Alimentação</td><td>Rocket Confeitaria</td><td>31,00</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Vestuário</td><td>Sandra Beatriz</td><td>873,50</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Vestuário</td><td>Jmm Comercial</td><td>119,53</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Farmácia</td><td>Drogaria Araújo</td><td>820,69</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Alimentação</td><td>Vivenda do Camarão</td><td>49,40</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Alimentação</td><td>Vivenda do Camarão</td><td>8,50</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Alimentação</td><td>KFC Shopping Boy</td><td>61,90</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>01/02/2025</td><td>Vestuário</td><td>Direção</td><td>20,00</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>02/02/2025</td><td>Alimentação</td><td>Supermercado da semana EPA</td><td>889,67</td><td>Todas</td><td>Carolina</td></tr>
-                    <tr><td>02/02/2025</td><td>Alimentação</td><td>Tradição de Minas - almoço</td><td>233,27</td><td>Todas</td><td>Carolina</td></tr>
-                    <tr><td>02/02/2025</td><td>Combustível</td><td>Macedo e Macedo Postos</td><td>211,08</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>03/03/2025</td><td>Material escolar</td><td>Papelaria Minas Brasil</td><td>526,80</td><td>Maria Eduarda/ Mariana</td><td>Carolina</td></tr>
-                    <tr><td>03/03/2025</td><td>Pagamentos</td><td>IPVA do Carro</td><td>6678,13</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>05/02/2025</td><td>Pagamentos</td><td>Basquete Mariana</td><td>80,00</td><td>Mariana</td><td>Carolina</td></tr>
-                    <tr><td>05/02/2025</td><td>Alimentação</td><td>Eeg Lanches</td><td>22,50</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>05/02/2025</td><td>Alimentação</td><td>Almoço Restaurante Trivial</td><td>50,45</td><td>Carolina</td><td>Carolina</td></tr>
-                    <tr><td>05/02/2025</td><td>Pagamentos</td><td>Condominio 301</td><td>669,13</td><td>Todas</td><td>Carolina</td></tr>
-                    <tr class="total-row">
-                        <td colspan="3">Total Geral</td>
-                        <td>R$ 15.220,20</td>
-                        <td colspan="2"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Ramos Principais -->
+        <div class="branch main-contextualizacao contextualizacao">
+            <h2>Contextualização</h2>
         </div>
+
+        <div class="branch main-estrategias estrategias">
+            <h2>Estratégias e Canais</h2>
+        </div>
+
+        <div class="branch main-implementacao implementacao">
+            <h2>Implementação</h2>
+        </div>
+
+        <div class="branch main-monitoramento monitoramento">
+            <h2>Monitoramento</h2>
+        </div>
+
+        <div class="branch main-recursos recursos">
+            <h2>Recursos</h2>
+        </div>
+
+        <!-- SVGs para conexões -->
+        <svg class="connection contextualizacao">
+            <path d=""></path>
+        </svg>
+        <svg class="connection estrategias">
+            <path d=""></path>
+        </svg>
+        <svg class="connection implementacao">
+            <path d=""></path>
+        </svg>
+        <svg class="connection monitoramento">
+            <path d=""></path>
+        </svg>
+        <svg class="connection recursos">
+            <path d=""></path>
+        </svg>
     </div>
+
     <script>
-        // Cálculos atualizados por categoria
-        const categoryTotals = {
-            'Eletrônicos': 1927.30,
-            'Mensalidades': 342.00,
-            'Terapia': 450.00,
-            'Pagamentos': 7429.76, // (2.50 + 6678.13 + 80.00 + 669.13)
-            'Alimentação': 1724.56, // (1651.61 + 22.50 + 50.45)
-            'Vestuário': 1738.01,
-            'Farmácia': 820.69,
-            'Combustível': 211.08,
-            'Material escolar': 526.80
+        // Função para criar curva Bezier entre dois pontos
+        function createCurvedPath(startX, startY, endX, endY) {
+            const deltaX = endX - startX;
+            const deltaY = endY - startY;
+            const controlPointX1 = startX + (deltaX * 0.25);
+            const controlPointY1 = startY + (deltaY * 0.1);
+            const controlPointX2 = startX + (deltaX * 0.75);
+            const controlPointY2 = endY - (deltaY * 0.1);
+            
+            return `M ${startX} ${startY} C ${controlPointX1} ${controlPointY1}, ${controlPointX2} ${controlPointY2}, ${endX} ${endY}`;
+        }
+
+        // Função para atualizar conexões
+        function updateConnections() {
+            const centerNode = document.querySelector('.center-node');
+            const centerRect = centerNode.getBoundingClientRect();
+            const centerX = centerRect.left + (centerRect.width / 2);
+            const centerY = centerRect.top + (centerRect.height / 2);
+
+            document.querySelectorAll('.branch').forEach(branch => {
+                const branchClass = Array.from(branch.classList)
+                    .find(cls => cls.startsWith('main-'));
+                if (!branchClass) return;
+
+                const connection = document.querySelector(`.connection.${branchClass.replace('main-', '')}`);
+                const branchRect = branch.getBoundingClientRect();
+                const branchX = branchRect.left + (branchRect.width / 2);
+                const branchY = branchRect.top + (branchRect.height / 2);
+
+                // Ajustar SVG para cobrir a área necessária
+                connection.style.left = '0';
+                connection.style.top = '0';
+                connection.style.width = '100%';
+                connection.style.height = '100%';
+
+                // Criar e atualizar o caminho da curva
+                const path = connection.querySelector('path');
+                path.setAttribute('d', createCurvedPath(centerX, centerY, branchX, branchY));
+            });
+        }
+
+        // Configurar subnodes dinâmicos
+        const subnodeData = {
+            'contextualizacao': [
+                'Missão e Valores',
+                'Público-alvo',
+                'Análise de Cenário'
+            ],
+            'estrategias': [
+                'Canais Digitais',
+                'Conteúdo Estratégico',
+                'Campanhas Específicas'
+            ],
+            'implementacao': [
+                'Cronograma Detalhado',
+                'Governança do Projeto',
+                'Processos'
+            ],
+            'monitoramento': [
+                'Métricas Principais',
+                'Gestão de Riscos',
+                'Relatórios e Análises'
+            ],
+            'recursos': [
+                'Estrutura Organizacional',
+                'Orçamento Anual',
+                'Infraestrutura'
+            ]
         };
 
-        // Totais por responsável atualizados
-        const responsibleTotals = {
-            'Carolina': 14510.20, // (13688.12 + 80.00 + 22.50 + 50.45 + 669.13)
-            'Eduardo': 710.00
-        };
+        // Criar e posicionar subnodes
+        document.querySelectorAll('.branch').forEach(branch => {
+            const branchType = Array.from(branch.classList)
+                .find(cls => cls.startsWith('main-'))
+                ?.replace('main-', '');
 
-        // Configuração do gráfico de categorias atualizado
-        const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-        new Chart(ctxCategory, {
-            type: 'pie',
-            data: {
-                labels: Object.keys(categoryTotals),
-                datasets: [{
-                    data: Object.values(categoryTotals),
-                    backgroundColor: [
-                        '#FF6384', // Eletrônicos
-                        '#36A2EB', // Mensalidades
-                        '#FFCE56', // Terapia
-                        '#4BC0C0', // Pagamentos
-                        '#9966FF', // Alimentação
-                        '#FF9F40', // Vestuário
-                        '#EA80FC', // Farmácia
-                        '#00E676', // Combustível
-                        '#607D8B'  // Material escolar
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Despesas por Categoria',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    },
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            generateLabels: function(chart) {
-                                const data = chart.data;
-                                if (data.labels.length && data.datasets.length) {
-                                    return data.labels.map(function(label, i) {
-                                        const value = data.datasets[0].data[i];
-                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const percentage = ((value / total) * 100).toFixed(1);
-                                        return {
-                                            text: `${label}: R$ ${value.toFixed(2)} (${percentage}%)`,
-                                            fillStyle: data.datasets[0].backgroundColor[i],
-                                            index: i
-                                        };
-                                    });
-                                }
-                                return [];
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const value = context.raw;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = ((value / total) * 100).toFixed(1);
-                                return `R$ ${value.toFixed(2)} (${percentage}%)`;
-                            }
-                        }
-                    }
-                }
+            if (branchType && subnodeData[branchType]) {
+                const subnodes = document.createElement('div');
+                subnodes.className = 'subnodes';
+                
+                subnodeData[branchType].forEach(text => {
+                    const subnode = document.createElement('div');
+                    subnode.className = 'subnode';
+                    subnode.textContent = text;
+                    subnodes.appendChild(subnode);
+                });
+
+                branch.appendChild(subnodes);
             }
         });
 
-        // Configuração do gráfico de responsáveis atualizado
-        const ctxResponsible = document.getElementById('responsibleChart').getContext('2d');
-        new Chart(ctxResponsible, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(responsibleTotals),
-                datasets: [{
-                    label: 'Valor Total (R$)',
-                    data: Object.values(responsibleTotals),
-                    backgroundColor: ['#36A2EB', '#FF6384']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Despesas por Responsável',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const value = context.raw;
-                                const total = Object.values(responsibleTotals).reduce((a, b) => a + b, 0);
-                                const percentage = ((value / total) * 100).toFixed(1);
-                                return `R$ ${value.toFixed(2)} (${percentage}%)`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return 'R$ ' + value.toFixed(2);
-                            }
-                        }
-                    }
+        // Eventos de clique e hover
+        document.querySelectorAll('.branch').forEach(branch => {
+            branch.addEventListener('click', () => {
+                const subnodes = branch.querySelector('.subnodes');
+                if (subnodes) {
+                    subnodes.classList.toggle('active');
                 }
-            }
+            });
         });
+
+        // Atualizar conexões inicialmente e ao redimensionar
+        window.addEventListener('load', updateConnections);
+        window.addEventListener('resize', updateConnections);
+
+        // Atualizar conexões periodicamente para garantir posicionamento correto
+        setInterval(updateConnections, 1000);
     </script>
 </body>
 </html>
