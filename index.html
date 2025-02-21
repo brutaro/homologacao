@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Mental Orgânico - LideraGov</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <title>Mapa Mental Whimsical-Style - LideraGov</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
     <style>
         :root {
-            --primary: #fd8127;
-            --primary-light: #ff9f57;
-            --primary-dark: #e66d1f;
-            --secondary: #4a4a4a;
-            --contextualizacao: #FF6B6B;
-            --estrategias: #4ECDC4;
-            --implementacao: #45B7D1;
-            --monitoramento: #96CEB4;
-            --recursos: #FFEEAD;
+            --primary: #6366f1;
+            --contextualizacao: #f59e0b;
+            --estrategias: #10b981;
+            --implementacao: #3b82f6;
+            --monitoramento: #8b5cf6;
+            --recursos: #ec4899;
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
         }
 
         * {
@@ -26,334 +28,325 @@
         }
 
         body {
-            background: #f8f9fa;
+            background: var(--bg-color);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-x: auto;
             padding: 2rem;
         }
 
         .mindmap-container {
-            width: 100%;
-            max-width: 1600px;
-            height: 90vh;
+            width: fit-content;
+            min-width: 100%;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .node {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            min-width: 200px;
             position: relative;
-            overflow: auto;
+            transition: all 0.2s ease;
         }
 
-        .center-node {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            z-index: 2;
-            min-width: 300px;
-            border: 3px solid var(--primary);
+        .node:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
         }
 
-        .center-node h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
+        .main-node {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            margin-right: 2rem;
+        }
+
+        .main-node h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .center-node p {
-            font-size: 0.9rem;
-            color: var(--secondary);
+        .main-node p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .branches-container {
+            display: flex;
+            gap: 2rem;
         }
 
         .branch {
-            position: absolute;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1;
-            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .branch:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .branch h2 {
+        .branch-header {
+            font-weight: 500;
             font-size: 1rem;
+            color: var(--text-primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
             margin-bottom: 0.5rem;
-            color: white;
         }
 
         .subnodes {
-            position: absolute;
-            background: white;
-            padding: 0.75rem 1rem;
-            border-radius: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-            width: 180px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .subnodes.active {
-            opacity: 1;
-            pointer-events: all;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .subnode {
-            font-size: 0.85rem;
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-primary);
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .subnode:hover {
-            background: #f0f0f0;
+            background: #f8fafc;
+            transform: translateX(4px);
         }
 
-        .connection {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
+        .items {
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border-color);
+            display: none;
         }
 
-        .connection path {
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            transition: all 0.3s ease;
+        .items.active {
+            display: block;
+        }
+
+        .item {
+            padding: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin: 0.25rem 0;
+            border-radius: 4px;
+        }
+
+        .item:hover {
+            background: #f8fafc;
         }
 
         /* Cores específicas para cada ramo */
-        .contextualizacao {
-            background: var(--contextualizacao);
-            border: 2px solid var(--contextualizacao);
-        }
-        .connection.contextualizacao path {
-            stroke: var(--contextualizacao);
+        .contextualizacao .branch-header {
+            color: var(--contextualizacao);
+            border-color: var(--contextualizacao);
         }
 
-        .estrategias {
-            background: var(--estrategias);
-            border: 2px solid var(--estrategias);
-        }
-        .connection.estrategias path {
-            stroke: var(--estrategias);
+        .estrategias .branch-header {
+            color: var(--estrategias);
+            border-color: var(--estrategias);
         }
 
-        .implementacao {
-            background: var(--implementacao);
-            border: 2px solid var(--implementacao);
-        }
-        .connection.implementacao path {
-            stroke: var(--implementacao);
+        .implementacao .branch-header {
+            color: var(--implementacao);
+            border-color: var(--implementacao);
         }
 
-        .monitoramento {
-            background: var(--monitoramento);
-            border: 2px solid var(--monitoramento);
-        }
-        .connection.monitoramento path {
-            stroke: var(--monitoramento);
+        .monitoramento .branch-header {
+            color: var(--monitoramento);
+            border-color: var(--monitoramento);
         }
 
-        .recursos {
-            background: var(--recursos);
-            border: 2px solid var(--recursos);
-        }
-        .connection.recursos path {
-            stroke: var(--recursos);
+        .recursos .branch-header {
+            color: var(--recursos);
+            border-color: var(--recursos);
         }
 
-        /* Posicionamento dos ramos principais */
-        .branch.main-contextualizacao {
-            left: 25%;
-            top: 30%;
-        }
-        .branch.main-estrategias {
-            right: 25%;
-            top: 30%;
-        }
-        .branch.main-implementacao {
-            left: 20%;
-            bottom: 30%;
-        }
-        .branch.main-monitoramento {
-            right: 20%;
-            bottom: 30%;
-        }
-        .branch.main-recursos {
-            left: 50%;
-            bottom: 20%;
-            transform: translateX(-50%);
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .mindmap-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .branches-container {
+                flex-direction: column;
+            }
+
+            .branch {
+                margin-left: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="mindmap-container">
-        <!-- Nó Central -->
-        <div class="center-node">
+        <!-- Nó Principal -->
+        <div class="node main-node">
             <h1>Plano de Comunicação LideraGov</h1>
             <p>Mapa Mental Estratégico</p>
         </div>
 
-        <!-- Ramos Principais -->
-        <div class="branch main-contextualizacao contextualizacao">
-            <h2>Contextualização</h2>
-        </div>
+        <!-- Container das Ramificações -->
+        <div class="branches-container">
+            <!-- Contextualização -->
+            <div class="branch contextualizacao">
+                <div class="branch-header">Contextualização</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Missão e Valores
+                        <div class="items">
+                            <div class="item">Desenvolvimento de Lideranças</div>
+                            <div class="item">Transformação do Estado</div>
+                            <div class="item">Inovação na Gestão</div>
+                            <div class="item">Excelência em Capacitação</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Público-alvo
+                        <div class="items">
+                            <div class="item">Servidores Federais</div>
+                            <div class="item">Líderes Públicos</div>
+                            <div class="item">Rede de Egressos</div>
+                            <div class="item">Stakeholders</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Análise de Cenário
+                        <div class="items">
+                            <div class="item">Demandas do Setor</div>
+                            <div class="item">Tendências</div>
+                            <div class="item">Benchmark</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="branch main-estrategias estrategias">
-            <h2>Estratégias e Canais</h2>
-        </div>
+            <!-- Estratégias -->
+            <div class="branch estrategias">
+                <div class="branch-header">Estratégias</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Canais Digitais
+                        <div class="items">
+                            <div class="item">Portal Institucional</div>
+                            <div class="item">LinkedIn</div>
+                            <div class="item">Instagram</div>
+                            <div class="item">YouTube</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Conteúdo
+                        <div class="items">
+                            <div class="item">Podcast</div>
+                            <div class="item">Vídeos</div>
+                            <div class="item">Posts</div>
+                            <div class="item">Artigos</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Campanhas
+                        <div class="items">
+                            <div class="item">Processo Seletivo</div>
+                            <div class="item">Eventos</div>
+                            <div class="item">Parcerias</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="branch main-implementacao implementacao">
-            <h2>Implementação</h2>
-        </div>
+            <!-- Implementação -->
+            <div class="branch implementacao">
+                <div class="branch-header">Implementação</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Cronograma
+                        <div class="items">
+                            <div class="item">Planejamento (Abr-Mai)</div>
+                            <div class="item">Desenvolvimento (Jun-Jul)</div>
+                            <div class="item">Lançamento (Set)</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Governança
+                        <div class="items">
+                            <div class="item">GT Comunicação</div>
+                            <div class="item">Comitê Gestor</div>
+                            <div class="item">Fluxo de Aprovação</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="branch main-monitoramento monitoramento">
-            <h2>Monitoramento</h2>
-        </div>
+            <!-- Monitoramento -->
+            <div class="branch monitoramento">
+                <div class="branch-header">Monitoramento</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Métricas
+                        <div class="items">
+                            <div class="item">KPIs</div>
+                            <div class="item">Analytics</div>
+                            <div class="item">NPS</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Gestão de Riscos
+                        <div class="items">
+                            <div class="item">Prevenção</div>
+                            <div class="item">Contingência</div>
+                            <div class="item">Protocolos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="branch main-recursos recursos">
-            <h2>Recursos</h2>
+            <!-- Recursos -->
+            <div class="branch recursos">
+                <div class="branch-header">Recursos</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Estrutura
+                        <div class="items">
+                            <div class="item">Equipe Interna</div>
+                            <div class="item">Suporte Externo</div>
+                            <div class="item">Infraestrutura</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Orçamento
+                        <div class="items">
+                            <div class="item">RH (45%)</div>
+                            <div class="item">Tecnologia (25%)</div>
+                            <div class="item">Conteúdo (30%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- SVGs para conexões -->
-        <svg class="connection contextualizacao">
-            <path d=""></path>
-        </svg>
-        <svg class="connection estrategias">
-            <path d=""></path>
-        </svg>
-        <svg class="connection implementacao">
-            <path d=""></path>
-        </svg>
-        <svg class="connection monitoramento">
-            <path d=""></path>
-        </svg>
-        <svg class="connection recursos">
-            <path d=""></path>
-        </svg>
     </div>
 
     <script>
-        // Função para criar curva Bezier entre dois pontos
-        function createCurvedPath(startX, startY, endX, endY) {
-            const deltaX = endX - startX;
-            const deltaY = endY - startY;
-            const controlPointX1 = startX + (deltaX * 0.25);
-            const controlPointY1 = startY + (deltaY * 0.1);
-            const controlPointX2 = startX + (deltaX * 0.75);
-            const controlPointY2 = endY - (deltaY * 0.1);
-            
-            return `M ${startX} ${startY} C ${controlPointX1} ${controlPointY1}, ${controlPointX2} ${controlPointY2}, ${endX} ${endY}`;
-        }
-
-        // Função para atualizar conexões
-        function updateConnections() {
-            const centerNode = document.querySelector('.center-node');
-            const centerRect = centerNode.getBoundingClientRect();
-            const centerX = centerRect.left + (centerRect.width / 2);
-            const centerY = centerRect.top + (centerRect.height / 2);
-
-            document.querySelectorAll('.branch').forEach(branch => {
-                const branchClass = Array.from(branch.classList)
-                    .find(cls => cls.startsWith('main-'));
-                if (!branchClass) return;
-
-                const connection = document.querySelector(`.connection.${branchClass.replace('main-', '')}`);
-                const branchRect = branch.getBoundingClientRect();
-                const branchX = branchRect.left + (branchRect.width / 2);
-                const branchY = branchRect.top + (branchRect.height / 2);
-
-                // Ajustar SVG para cobrir a área necessária
-                connection.style.left = '0';
-                connection.style.top = '0';
-                connection.style.width = '100%';
-                connection.style.height = '100%';
-
-                // Criar e atualizar o caminho da curva
-                const path = connection.querySelector('path');
-                path.setAttribute('d', createCurvedPath(centerX, centerY, branchX, branchY));
-            });
-        }
-
-        // Configurar subnodes dinâmicos
-        const subnodeData = {
-            'contextualizacao': [
-                'Missão e Valores',
-                'Público-alvo',
-                'Análise de Cenário'
-            ],
-            'estrategias': [
-                'Canais Digitais',
-                'Conteúdo Estratégico',
-                'Campanhas Específicas'
-            ],
-            'implementacao': [
-                'Cronograma Detalhado',
-                'Governança do Projeto',
-                'Processos'
-            ],
-            'monitoramento': [
-                'Métricas Principais',
-                'Gestão de Riscos',
-                'Relatórios e Análises'
-            ],
-            'recursos': [
-                'Estrutura Organizacional',
-                'Orçamento Anual',
-                'Infraestrutura'
-            ]
-        };
-
-        // Criar e posicionar subnodes
-        document.querySelectorAll('.branch').forEach(branch => {
-            const branchType = Array.from(branch.classList)
-                .find(cls => cls.startsWith('main-'))
-                ?.replace('main-', '');
-
-            if (branchType && subnodeData[branchType]) {
-                const subnodes = document.createElement('div');
-                subnodes.className = 'subnodes';
-                
-                subnodeData[branchType].forEach(text => {
-                    const subnode = document.createElement('div');
-                    subnode.className = 'subnode';
-                    subnode.textContent = text;
-                    subnodes.appendChild(subnode);
-                });
-
-                branch.appendChild(subnodes);
-            }
-        });
-
-        // Eventos de clique e hover
-        document.querySelectorAll('.branch').forEach(branch => {
-            branch.addEventListener('click', () => {
-                const subnodes = branch.querySelector('.subnodes');
-                if (subnodes) {
-                    subnodes.classList.toggle('active');
-                }
+        // Adiciona interatividade aos subnodes
+        document.querySelectorAll('.subnode').forEach(subnode => {
+            subnode.addEventListener('click', () => {
+                const items = subnode.querySelector('.items');
+                items.classList.toggle('active');
             });
         });
 
-        // Atualizar conexões inicialmente e ao redimensionar
-        window.addEventListener('load', updateConnections);
-        window.addEventListener('resize', updateConnections);
-
-        // Atualizar conexões periodicamente para garantir posicionamento correto
-        setInterval(updateConnections, 1000);
+        // Previne propagação do clique dos items
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
     </script>
 </body>
 </html>
