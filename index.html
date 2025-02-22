@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Mental Whimsical-Style - LideraGov</title>
+    <title>Plano de Ação 5W1H - LideraGov</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
     <style>
         :root {
             --primary: #6366f1;
-            --contextualizacao: #f59e0b;
-            --estrategias: #10b981;
-            --implementacao: #3b82f6;
-            --monitoramento: #8b5cf6;
-            --recursos: #ec4899;
+            --what: #f59e0b;    /* Laranja */
+            --why: #10b981;     /* Verde */
+            --where: #3b82f6;   /* Azul */
+            --when: #8b5cf6;    /* Roxo */
+            --who: #ec4899;     /* Rosa */
+            --how: #06b6d4;     /* Ciano */
             --bg-color: #fafafa;
             --card-bg: #ffffff;
             --text-primary: #111827;
@@ -143,29 +144,34 @@
         }
 
         /* Cores específicas para cada ramo */
-        .contextualizacao .branch-header {
-            color: var(--contextualizacao);
-            border-color: var(--contextualizacao);
+        .what .branch-header {
+            color: var(--what);
+            border-color: var(--what);
         }
 
-        .estrategias .branch-header {
-            color: var(--estrategias);
-            border-color: var(--estrategias);
+        .why .branch-header {
+            color: var(--why);
+            border-color: var(--why);
         }
 
-        .implementacao .branch-header {
-            color: var(--implementacao);
-            border-color: var(--implementacao);
+        .where .branch-header {
+            color: var(--where);
+            border-color: var(--where);
         }
 
-        .monitoramento .branch-header {
-            color: var(--monitoramento);
-            border-color: var(--monitoramento);
+        .when .branch-header {
+            color: var(--when);
+            border-color: var(--when);
         }
 
-        .recursos .branch-header {
-            color: var(--recursos);
-            border-color: var(--recursos);
+        .who .branch-header {
+            color: var(--who);
+            border-color: var(--who);
+        }
+
+        .how .branch-header {
+            color: var(--how);
+            border-color: var(--how);
         }
 
         /* Responsividade */
@@ -189,142 +195,211 @@
     <div class="mindmap-container">
         <!-- Nó Principal -->
         <div class="node main-node">
-            <h1>Plano de Comunicação LideraGov</h1>
-            <p>Mapa Mental Estratégico</p>
+            <h1>Plano de Ação LideraGov</h1>
+            <p>5W1H - Estrutura Detalhada</p>
         </div>
 
         <!-- Container das Ramificações -->
         <div class="branches-container">
-            <!-- Contextualização -->
-            <div class="branch contextualizacao">
-                <div class="branch-header">Contextualização</div>
+            <!-- O QUE (What) -->
+            <div class="branch what">
+                <div class="branch-header">O Que</div>
                 <div class="subnodes">
                     <div class="subnode">
-                        Missão e Valores
+                        Reuniões e Governança
                         <div class="items">
-                            <div class="item">Desenvolvimento de Lideranças</div>
-                            <div class="item">Transformação do Estado</div>
-                            <div class="item">Inovação na Gestão</div>
-                            <div class="item">Excelência em Capacitação</div>
+                            <div class="item">Reuniões do GT de Comunicação</div>
+                            <div class="item">Acompanhamento da implementação</div>
+                            <div class="item">Registro de decisões</div>
                         </div>
                     </div>
                     <div class="subnode">
-                        Público-alvo
+                        Desenvolvimento Digital
                         <div class="items">
-                            <div class="item">Servidores Federais</div>
-                            <div class="item">Líderes Públicos</div>
-                            <div class="item">Rede de Egressos</div>
-                            <div class="item">Stakeholders</div>
+                            <div class="item">Identidade visual</div>
+                            <div class="item">Portal institucional</div>
+                            <div class="item">Repositório digital</div>
                         </div>
                     </div>
                     <div class="subnode">
-                        Análise de Cenário
-                        <div class="items">
-                            <div class="item">Demandas do Setor</div>
-                            <div class="item">Tendências</div>
-                            <div class="item">Benchmark</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Estratégias -->
-            <div class="branch estrategias">
-                <div class="branch-header">Estratégias</div>
-                <div class="subnodes">
-                    <div class="subnode">
-                        Canais Digitais
-                        <div class="items">
-                            <div class="item">Portal Institucional</div>
-                            <div class="item">LinkedIn</div>
-                            <div class="item">Instagram</div>
-                            <div class="item">YouTube</div>
-                        </div>
-                    </div>
-                    <div class="subnode">
-                        Conteúdo
+                        Produção de Conteúdo
                         <div class="items">
                             <div class="item">Podcast</div>
-                            <div class="item">Vídeos</div>
-                            <div class="item">Posts</div>
-                            <div class="item">Artigos</div>
+                            <div class="item">Canal YouTube</div>
+                            <div class="item">Redes sociais</div>
                         </div>
                     </div>
                     <div class="subnode">
-                        Campanhas
+                        Finalização e Lançamento
                         <div class="items">
-                            <div class="item">Processo Seletivo</div>
-                            <div class="item">Eventos</div>
-                            <div class="item">Parcerias</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Implementação -->
-            <div class="branch implementacao">
-                <div class="branch-header">Implementação</div>
-                <div class="subnodes">
-                    <div class="subnode">
-                        Cronograma
-                        <div class="items">
-                            <div class="item">Planejamento (Abr-Mai)</div>
-                            <div class="item">Desenvolvimento (Jun-Jul)</div>
-                            <div class="item">Lançamento (Set)</div>
-                        </div>
-                    </div>
-                    <div class="subnode">
-                        Governança
-                        <div class="items">
-                            <div class="item">GT Comunicação</div>
-                            <div class="item">Comitê Gestor</div>
-                            <div class="item">Fluxo de Aprovação</div>
+                            <div class="item">Validação de conteúdos</div>
+                            <div class="item">Treinamento das equipes</div>
+                            <div class="item">Lançamento do plano</div>
+                            <div class="item">Monitoramento e ajustes</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Monitoramento -->
-            <div class="branch monitoramento">
-                <div class="branch-header">Monitoramento</div>
+            <!-- POR QUE (Why) -->
+            <div class="branch why">
+                <div class="branch-header">Por Que</div>
                 <div class="subnodes">
                     <div class="subnode">
-                        Métricas
+                        Objetivos Principais
                         <div class="items">
-                            <div class="item">KPIs</div>
-                            <div class="item">Analytics</div>
-                            <div class="item">NPS</div>
+                            <div class="item">Planejar e acompanhar implementação do plano</div>
+                            <div class="item">Padronizar comunicação visual</div>
+                            <div class="item">Estabelecer presença em áudio</div>
+                            <div class="item">Criar presença em vídeo</div>
                         </div>
                     </div>
                     <div class="subnode">
-                        Gestão de Riscos
+                        Objetivos Estruturais
                         <div class="items">
-                            <div class="item">Prevenção</div>
-                            <div class="item">Contingência</div>
-                            <div class="item">Protocolos</div>
+                            <div class="item">Centralizar produção intelectual</div>
+                            <div class="item">Melhorar experiência do usuário</div>
+                            <div class="item">Aumentar engajamento e alcance</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Objetivos Estratégicos
+                        <div class="items">
+                            <div class="item">Garantir qualidade e alinhamento</div>
+                            <div class="item">Capacitar equipes</div>
+                            <div class="item">Iniciar nova fase da comunicação</div>
+                            <div class="item">Avaliar resultados e melhorias</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recursos -->
-            <div class="branch recursos">
-                <div class="branch-header">Recursos</div>
+            <!-- ONDE (Where) -->
+            <div class="branch where">
+                <div class="branch-header">Onde</div>
                 <div class="subnodes">
                     <div class="subnode">
-                        Estrutura
+                        Ambientes Físicos/Híbridos
                         <div class="items">
-                            <div class="item">Equipe Interna</div>
-                            <div class="item">Suporte Externo</div>
-                            <div class="item">Infraestrutura</div>
+                            <div class="item">Formato híbrido (presencial/virtual)</div>
+                            <div class="item">Estúdio de gravação</div>
+                            <div class="item">Ambiente virtual/presencial</div>
                         </div>
                     </div>
                     <div class="subnode">
-                        Orçamento
+                        Plataformas Digitais
                         <div class="items">
-                            <div class="item">RH (45%)</div>
-                            <div class="item">Tecnologia (25%)</div>
-                            <div class="item">Conteúdo (30%)</div>
+                            <div class="item">Plataformas digitais da Rede</div>
+                            <div class="item">Portal institucional</div>
+                            <div class="item">Plataforma YouTube</div>
+                            <div class="item">LinkedIn e Instagram</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Ambientes Virtuais
+                        <div class="items">
+                            <div class="item">Ambiente virtual da Rede</div>
+                            <div class="item">Todos os canais da Rede</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUANDO (When) -->
+            <div class="branch when">
+                <div class="branch-header">Quando</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Fase 1 - Abril
+                        <div class="items">
+                            <div class="item">Início reuniões quinzenais</div>
+                            <div class="item">Desenvolvimento identidade visual</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Fase 2 - Maio a Julho
+                        <div class="items">
+                            <div class="item">Produção de podcast</div>
+                            <div class="item">Desenvolvimento YouTube</div>
+                            <div class="item">Repositório e portal</div>
+                            <div class="item">Estratégia redes sociais</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Fase 3 - Agosto
+                        <div class="items">
+                            <div class="item">Validação de conteúdos</div>
+                            <div class="item">Treinamento das equipes</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Fase 4 - Setembro
+                        <div class="items">
+                            <div class="item">Lançamento do plano</div>
+                            <div class="item">Início do monitoramento</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUEM (Who) -->
+            <div class="branch who">
+                <div class="branch-header">Quem</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Equipes Principais
+                        <div class="items">
+                            <div class="item">GT de Comunicação</div>
+                            <div class="item">Equipe de Design</div>
+                            <div class="item">Equipe de Produção Audiovisual</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Equipes Técnicas
+                        <div class="items">
+                            <div class="item">Equipe de TI</div>
+                            <div class="item">Equipe de UX/UI</div>
+                            <div class="item">Equipe de Marketing Digital</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Gestão e Apoio
+                        <div class="items">
+                            <div class="item">Gestores</div>
+                            <div class="item">Equipe de Capacitação</div>
+                            <div class="item">Equipe de Análise de Dados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMO (How) -->
+            <div class="branch how">
+                <div class="branch-header">Como</div>
+                <div class="subnodes">
+                    <div class="subnode">
+                        Metodologias
+                        <div class="items">
+                            <div class="item">Reuniões estruturadas de 1h30</div>
+                            <div class="item">Criação de manuais e templates</div>
+                            <div class="item">Gravação e edição de episódios</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Implementação
+                        <div class="items">
+                            <div class="item">Desenvolvimento de conteúdo</div>
+                            <div class="item">Sistema de arquivo e categorização</div>
+                            <div class="item">Nova interface e funcionalidades</div>
+                        </div>
+                    </div>
+                    <div class="subnode">
+                        Execução Final
+                        <div class="items">
+                            <div class="item">Calendário editorial</div>
+                            <div class="item">Workshops e materiais</div>
+                            <div class="item">Evento de lançamento</div>
+                            <div class="item">Acompanhamento de métricas</div>
                         </div>
                     </div>
                 </div>
